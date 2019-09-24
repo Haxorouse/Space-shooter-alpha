@@ -21,12 +21,12 @@ class Torpedo{
   void move(){
     top+=direction;
     left+=leftRight;
-    drawTorpedo();
   }
   
   void drawTorpedo(){
     right = left+w;
     bottom = top+h;
+    if(!exploading)move();
     fill(c);
     stroke(255,255,0);
     strokeWeight(2);
@@ -40,9 +40,15 @@ class Torpedo{
       vertex(left+3,top+12);
     endShape();
     if(exploading)expload();
+    if(top<0)expload();
   }
   
   void expload(){
+    if(boomTime==0){
+      tBoom.cue(.8);
+      tBoom.play();
+      tShock.play();
+    }else if(boomTime==100)tShock.play();
     exploading=true;
     boomTime++;
       if (boomTime<200) {

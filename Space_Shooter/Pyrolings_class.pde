@@ -110,7 +110,7 @@ class Enemy {
   }
   
   void dropChance(){
-    dropChance=(int)random(1,10);;
+    dropChance=(int)random(1,10);
     if(dropChance==1){
       dropPU=true;
     }else{
@@ -150,7 +150,7 @@ class Enemy {
     float rand=random(75);
     if (rand<1 && y>h/2) {
       bullets.add(new Bullet(x, y+h, 20, color(255, 255, 0),0));
-      pShoot.play();
+      pShoot.trigger();
     }
   }
 
@@ -160,7 +160,6 @@ class Enemy {
       if (bullets.get(b).top>height) {
         bullets.remove(b);
       } else if (hero.isCollision(bullets.get(b))) {
-        background(255, 0, 0);
         if(hero.dead==false)hero.damage(1);
         bullets.remove(b);
       }
@@ -172,7 +171,7 @@ class Enemy {
     return false;
   }
    boolean isExploaded(Torpedo t) {
-    if(dist(t.left-2,t.top-10,x,y)<t.radius)return true;
+    if(dist(t.left-2,t.top-10,x,y)<t.radius+25)return true;
     return false;
   }
 }

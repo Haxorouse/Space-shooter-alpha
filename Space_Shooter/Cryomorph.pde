@@ -89,6 +89,7 @@ class Cryomorph{
   void deathAura(){
     if(dist(hero.x,hero.y,x,y)<50 && hero.y==height-80){
       hero.sheildTime=0;
+      if(hero.health>0)cFreeze.trigger();
       hero.damage(30);
     }
   }
@@ -103,8 +104,11 @@ class Cryomorph{
   }
   
   void damage(int damage) {
+    int temp=health;
     health-=damage;
-    if(dead==false)hero.score+=15*damage;
+    if(dead==false && damage<=temp){
+      hero.score+=10*damage;
+    }else hero.score+=temp*10;
     if (health<1) {
       destroy();
     }
@@ -112,6 +116,7 @@ class Cryomorph{
   
   void destroy() {
     if(dead==false){
+    cBoom.trigger();
     deathX=x;
     deathY=y;
     if(dropPU){
@@ -168,7 +173,7 @@ class Cryomorph{
     return false;
   }
    boolean isExploaded(Torpedo t) {
-    if(dist(t.left-2,t.top-10,x,y)<t.radius)return true;
+    if(dist(t.left-2,t.top-10,x,y)<t.radius+25)return true;
     return false;
   }
 }

@@ -209,15 +209,15 @@ class Hero {
     }
     if (code==139)score+=100;
     if (code==10) {
-      defaultHealth=1000;
+      defaultHealth=10000;
       damage=1000;
       ammoTripple=10000;
       ammoMachine=10000;
       ammoSniper=10000;
       ammoTorpedo=10000;
       lives=12;
-      health=1000;
-      coolDown=5;
+      health=10000;
+      coolDown=0;
     }
     if (code==77) {
       activePU++;
@@ -257,6 +257,7 @@ class Hero {
         bullets.add(new Bullet(x-2, y-h/2+1, -15, color(0, 0, 255), 0));
         canShoot=false;
         shootTimer=0;
+        bGun.trigger();
       } else if (activePU==1 && ammoTripple>0) {
         //tripple shot
         currentCoolDown=coolDown;
@@ -266,6 +267,7 @@ class Hero {
         canShoot=false;
         shootTimer=0;
         ammoTripple--;
+        tGun.trigger();
       } else if (activePU==2 && ammoMachine>0) {
         //machine gun
         currentCoolDown=4;
@@ -273,12 +275,14 @@ class Hero {
         canShoot=false;
         shootTimer=coolDown-4;
         ammoMachine--;
+        mGun.trigger();
       } else if (activePU==3 && ammoSniper>0) {
         //sniper
         currentCoolDown=180;
         sniping=true;
         for (int b=0; b<200; b++) {
-          bullets.add(new Bullet((x-2)+(4*b*sin(radians(sniperAim))), (y-h/2+1)-(3*b*cos(radians(sniperAim)))+1000, -1000, color(255, 0, 0), 0));
+        bullets.add(new Bullet((x-2)+(4*b*sin(radians(sniperAim))), (y-h/2+1)-(3*b*cos(radians(sniperAim)))+1000, -1000, color(255, 0, 0), 0));
+        sniper.trigger();
         }
         shootTimerS=0;
         ammoSniper--;
@@ -290,6 +294,8 @@ class Hero {
         torpedos.add(new Torpedo(x-5, y-h/2+1, -5, color(52, 229, 247), 0));
         shootTimerT=0;
         ammoTorpedo--;
+        tFire.cue(1.4);
+        tFire.play();
       }
     }
   }
@@ -354,7 +360,6 @@ class Hero {
             bullets.remove(b);
             break;
           } else if (enemy.isCollision(bullets.get(b))) {
-            background(0, 0, 255);
             enemy.destroy();
             bullets.remove(b);
             break;
@@ -368,7 +373,6 @@ class Hero {
             bullets.remove(b);
             break;
           } else if (b<bullets.size() && bullets.get(b)!=null && necrophite.isCollision(bullets.get(b))) {
-            background(0, 0, 255);
             necrophite.damage(damage);
             bullets.remove(b);
             break;
@@ -382,7 +386,6 @@ class Hero {
             bullets.remove(b);
             break;
           } else if (b<bullets.size() && bullets.get(b)!=null && cryomorph.isCollision(bullets.get(b))) {
-            background(0, 0, 255);
             cryomorph.damage(damage);
             bullets.remove(b);
             break;
@@ -396,7 +399,6 @@ class Hero {
             bullets.remove(b);
             break;
           } else if (b<bullets.size() && bullets.get(b)!=null && hemobibe.isCollision(bullets.get(b))) {
-            background(0, 0, 255);
             hemobibe.damage(damage);
             bullets.remove(b);
             break;
@@ -410,7 +412,6 @@ class Hero {
             bullets.remove(b);
             break;
           } else if (b<bullets.size() && bullets.get(b)!=null && fodder.isCollision(bullets.get(b))) {
-            background(0, 0, 255);
             fodder.destroy();
             bullets.remove(b);
             break;
@@ -454,18 +455,17 @@ class Hero {
       }
     }
     for (int t=0; t<torpedos.size(); t++) {
-      if (torpedos.get(t).exploading==false)torpedos.get(t).move();
+      if (torpedos.get(t).exploading==false)torpedos.get(t).drawTorpedo();
       if (torpedos.get(t).exploading)torpedos.get(t).expload();
       if (torpedosExpload) {
         torpedos.get(t).expload();
       }
-      if (torpedos.get(t).top<-20)torpedos.remove(this);
       if (enemies.size()>0) {
         for (int e =0; e<enemies.size(); e++) {
           Enemy enemy = enemies.get(e);
           if (enemy.isExploaded(torpedos.get(t))) {
             enemy.destroy();
-            break;
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
@@ -474,7 +474,7 @@ class Hero {
           Enemy2 necrophite = necrophites.get(n);
           if (t<torpedos.size() && torpedos.get(t)!=null && necrophite.isExploaded(torpedos.get(t))) {
             necrophite.damage(1);
-            break;
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
@@ -483,7 +483,7 @@ class Hero {
           Cryomorph cryomorph = cryomorphs.get(c);
           if (t<torpedos.size() && torpedos.get(t)!=null && cryomorph.isExploaded(torpedos.get(t))) {
             cryomorph.damage(1);
-            break;
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
@@ -492,7 +492,7 @@ class Hero {
           Hemobibe hemobibe = hemobibes.get(h);
           if (t<torpedos.size() && torpedos.get(t)!=null && hemobibe.isExploaded(torpedos.get(t))) {
             hemobibe.damage(1);
-            break;
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
@@ -500,9 +500,8 @@ class Hero {
         for (int f =0; f<cannonFodder.size(); f++) {
           CannonFodder fodder = cannonFodder.get(f);
           if (t<torpedos.size() && torpedos.get(t)!=null && fodder.isExploaded(torpedos.get(t))) {
-            background(0, 0, 255);
             fodder.destroy();
-            break;
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
@@ -514,24 +513,30 @@ class Hero {
               asteroid.shatter();
             }
             asteroids.remove(asteroid);
+            if(!torpedos.get(t).exploading)torpedos.get(t).expload();
           }
         }
       }
       if (stage==20) {
         if (t<torpedos.size() && torpedos.get(t)!=null && boss.isExploadedCockpit(torpedos.get(t))) {
           boss.damage(3);
+          if(!torpedos.get(t).exploading)torpedos.get(t).expload();
         } 
         if (t<torpedos.size() && torpedos.get(t)!=null && boss.isExploadedCam1(torpedos.get(t))) {
           boss.cam1Dead=true;
+          if(!torpedos.get(t).exploading)torpedos.get(t).expload();
         }
         if (t<torpedos.size() && torpedos.get(t)!=null && boss.isExploadedCam2(torpedos.get(t))) {
           boss.cam2Dead=true;
+          if(!torpedos.get(t).exploading)torpedos.get(t).expload();
         }
         if (t<torpedos.size() && torpedos.get(t)!=null && boss.isExploadedCam3(torpedos.get(t))) {
           boss.cam3Dead=true;
+          if(!torpedos.get(t).exploading)torpedos.get(t).expload();
         }
         if (t<torpedos.size() && torpedos.get(t)!=null && boss.isExploadedCam4(torpedos.get(t))) {
           boss.cam4Dead=true;
+          if(!torpedos.get(t).exploading)torpedos.get(t).expload();
         }
       }
       if (torpedos.get(t).done)torpedos.remove(t);

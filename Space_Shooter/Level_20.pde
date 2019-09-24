@@ -7,6 +7,7 @@ void setupLvl20(){
   starting = true;
   hero.boosters=false;
   stage=20;
+  musicHandler.interupt(muBoss);
 }
 
 void level20(){

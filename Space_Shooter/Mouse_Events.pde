@@ -2,6 +2,9 @@ void mousePressed(){
   if(btnPlay!=null && btnPlay.mouseIsHovering()&& stage==0){
     setupLvl1();
   }
+  if(btnEnterTutorial!=null && btnEnterTutorial.mouseIsHovering() && stage==0){
+    setupTutorial();
+  }
   if(btnReplay!=null && btnReplay.mouseIsHovering()&& stage==1000){
     setupLvl1();
   }
@@ -9,14 +12,14 @@ void mousePressed(){
     enterShop();
     paused=false;
   }
-  if(btnUnpause.mouseIsHovering()){
+  if(btnUnpause.mouseIsHovering() && paused){
     paused=false;
   }
-  if(btnReturnToTitle.mouseIsHovering()){
+  if(btnReturnToTitle.mouseIsHovering() && paused){
     paused=false;
     stage=0;
   }
-  if(btnExitGame.mouseIsHovering())exit();
+  if(btnMusic.mouseIsHovering() && paused)musicMenu=true;
   //shop buttons
   if(shopping){
     if(btnExitShop.mouseIsHovering())shopping=false;

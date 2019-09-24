@@ -13,5 +13,9 @@ void pause(){
   btnShop.drawButton();
   btnUnpause.drawButton();
   btnReturnToTitle.drawButton();
-  btnExitGame.drawButton();
+  btnMusic.drawButton();
+}
+
+void musicMenu(){
+  
 }

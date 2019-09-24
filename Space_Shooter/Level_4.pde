@@ -9,6 +9,11 @@ void setupLvl4() {
   starting = true;
   hero.boosters=false;
   stage=4;
+  if(trackUnlocked==1){
+    trackUnlocked=2;
+    stageMusic.add(muLevel4);
+    musicHandler.interupt(muLevel4);
+  }
 }
 
 void level4() {

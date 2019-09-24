@@ -8,6 +8,7 @@ void startScreen(){
   textSize(50);
   text("SPACE SHOOTER",width/2,height/3);
   btnPlay.drawButton();
+  btnEnterTutorial.drawButton();
   fill(255);
   textSize(25);
   text("controls",width*3/4,height/2);

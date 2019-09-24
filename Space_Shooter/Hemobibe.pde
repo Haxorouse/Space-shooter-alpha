@@ -103,8 +103,11 @@ class Hemobibe{
   }
   
   void damage(int damage) {
+    int temp=health;
     health-=damage;
-    if(dead==false)hero.score+=15*damage;
+    if(dead==false && damage<=temp){
+      hero.score+=10*damage;
+    }else hero.score+=temp*10;
     if (health<1) {
       destroy();
     }
@@ -174,9 +177,18 @@ class Hemobibe{
   void shoot(){
     if(shootingTime<10){
       shootingTime++;
-      if(shootingTime==1)bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
-      if(shootingTime==5)bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
-      if(shootingTime==9)bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
+      if(shootingTime==1){
+        bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
+        hShoot.trigger();
+      }
+      if(shootingTime==5){
+        bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
+        hShoot.trigger();
+      }
+      if(shootingTime==9){
+        bullets.add(new Bullet(x, y+h, 20, color(255,0, 0),random(-1,2)));
+        hShoot.trigger();
+      }
     }else{
       shooting=false;
       shootingTime=0;
@@ -189,7 +201,6 @@ class Hemobibe{
       if (bullets.get(b).top>height) {
         bullets.remove(b);
       } else if (hero.isCollision(bullets.get(b))) {
-        background(255, 0, 0);
         if(hero.dead==false)hero.damage(1);
         bullets.remove(b);
       }
@@ -201,7 +212,7 @@ class Hemobibe{
     return false;
   }
    boolean isExploaded(Torpedo t) {
-    if(dist(t.left-2,t.top-10,x,y)<t.radius)return true;
+    if(dist(t.left-2,t.top-10,x,y)<t.radius+25)return true;
     return false;
   }
   

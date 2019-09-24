@@ -105,7 +105,7 @@ class CannonFodder{
     float rand=random(100);
     if (rand<1 && y>h/2) {
       bullets.add(new Bullet(x, y+h, 20, color(255, 255, 0),0));
-      fShoot.play();
+      fShoot.trigger();
     }
   }
 
@@ -115,7 +115,6 @@ class CannonFodder{
       if (bullets.get(b).top>height) {
         bullets.remove(b);
       } else if (hero.isCollision(bullets.get(b))) {
-        background(255, 0, 0);
         if(hero.dead==false)hero.damage(1);
         bullets.remove(b);
       }
@@ -127,7 +126,7 @@ class CannonFodder{
     return false;
   }
    boolean isExploaded(Torpedo t) {
-    if(dist(t.left-2,t.top-10,x,y)<t.radius)return true;
+    if(dist(t.left-2,t.top-10,x,y)<t.radius+10)return true;
     return false;
   }
   

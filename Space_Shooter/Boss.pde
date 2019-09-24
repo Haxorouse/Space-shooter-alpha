@@ -247,29 +247,29 @@ class Boss {
         bullets.add(new Bullet(42, 30, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(792, 30, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(754, 30, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (attackTimer==6) {
         bullets.add(new Bullet(102, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(142, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(692, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(654, 53, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (attackTimer==11) {
         bullets.add(new Bullet(202, 63, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(242, 63, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(592, 63, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(554, 63, 15, color(255, 128, 0), 0));
-        bShoot.play();
-        bShoot.play();
+        bShoot.trigger();
+        bShoot.trigger();
       }
       if (attackTimer==16) {
         bullets.add(new Bullet(302, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(342, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(492, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(454, 69, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (attackTimer>=20) attackTimer=0;
     } else if (attackPattern==7||attackPattern==8||attackPattern==9||attackPattern==10) {
@@ -284,7 +284,7 @@ class Boss {
         bullets.add(new Bullet(454, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(692, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(654, 53, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (attackTimer==21 || attackTimer==25 || attackTimer==29) {
         bullets.add(new Bullet(102, 53, 15, color(255, 128, 0), 0));
@@ -295,7 +295,7 @@ class Boss {
         bullets.add(new Bullet(554, 63, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(792, 30, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(754, 30, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (attackTimer>=60)attackTimer=0;
     } else {
@@ -304,32 +304,32 @@ class Boss {
       if (rand==1) {
         bullets.add(new Bullet(2, 30, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(42, 30, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==2) {
         bullets.add(new Bullet(202, 63, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(242, 63, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==3) {
         bullets.add(new Bullet(492, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(454, 69, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==4) {
         bullets.add(new Bullet(692, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(654, 53, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==5) {
         bullets.add(new Bullet(102, 53, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(142, 53, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==6) {
         bullets.add(new Bullet(302, 69, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(342, 69, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
       if (rand==7) {
         bullets.add(new Bullet(592, 63, 15, color(255, 128, 0), 0));
@@ -338,7 +338,7 @@ class Boss {
       if (rand==8) {
         bullets.add(new Bullet(792, 30, 15, color(255, 128, 0), 0));
         bullets.add(new Bullet(754, 30, 15, color(255, 128, 0), 0));
-        bShoot.play();
+        bShoot.trigger();
       }
     }
   }

@@ -215,8 +215,11 @@ class Enemy2 {
   
 
   void damage(int damage) {
+    int temp=health;
     health-=damage;
-    if(dead==false)hero.score+=10*damage;
+    if(dead==false && damage<=temp){
+      hero.score+=10*damage;
+    }else hero.score+=temp*10;
     if (health<1) {
       destroy();
     }
@@ -259,7 +262,7 @@ class Enemy2 {
   void shoot(){
     if(y>0-h){
       fireCoolDown--;
-      if(fireCoolDown==30)nShoot.play();
+      if(fireCoolDown==30)nShoot.trigger();
         if(fireCoolDown<0){
           fireCoolDown=150;
           bullets.add(new Bullet(x, y+h, 20, color(238, 7, 235),0));
@@ -274,7 +277,6 @@ class Enemy2 {
       if (bullets.get(b).top>height) {
         bullets.remove(b);
       } else if (hero.isCollision(bullets.get(b))) {
-        background(255, 0, 0);
         if(hero.dead==false)hero.damage(3);
         bullets.remove(b);
       }
@@ -287,7 +289,7 @@ class Enemy2 {
     return false;
   }
    boolean isExploaded(Torpedo t) {
-    if(dist(t.left-2,t.top-10,x,y)<t.radius)return true;
+    if(dist(t.left-2,t.top-10,x,y)<t.radius+25)return true;
     return false;
   }
 }

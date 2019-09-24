@@ -13,6 +13,11 @@ void setupLvl1(){
   hero.lives=3;
   starting = true;
   stage=1;
+  if(trackUnlocked==0){
+    trackUnlocked=1;
+    stageMusic.add(muLevel1);
+  }
+  musicHandler.levelMusic=true;
 }
 
 void level1(){
